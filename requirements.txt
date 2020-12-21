@@ -1,0 +1,7 @@
+mysqlclient
+django
+ipython
+djangorestframework
+markdown
+django-filter
+
