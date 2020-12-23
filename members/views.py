@@ -23,7 +23,7 @@ def team(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def team_member(request, pk):
     try:
         member = TeamMember.objects.get(pk=pk)
@@ -33,9 +33,9 @@ def team_member(request, pk):
     if request.method == 'GET':
         serializer = TeamSerializer(member)
         return Response(serializer.data)
-    elif request.method == 'PUT':
+    elif request.method == 'PUT' or request.method == 'PATCH':
         data = request.data
-        serializer = TeamSerializer(member, data=data, partial=True)
+        serializer = TeamSerializer(member, data=data, partial=(request.method == 'PATCH'))
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

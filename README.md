@@ -157,13 +157,16 @@ Response Body
 }
 ```
 
-### Editing team member details
+### Updating all team member details
 
 `PUT /api/v1/team-members/:id`
 
+All fields should be present in request body i.e. `first_name`, `last_name`, `phone_number`, `email` and `role`
+
 ```sh
 curl -X PUT -H "Content-Type:application/json" http://127.0.0.1:8000/api/v1/team-members/1 -d '
-{"first_name": "Keanu", "last_name": "Reeves", "phone_number": "+19999977777"}'
+{"first_name": "Keanu", "last_name": "Reeves", "phone_number": "+19999977777",
+"email":"johnwick@excommunicado.com", "role":"admin"}'
 ```
 Status
 ```
@@ -176,6 +179,32 @@ Response Body
   "first_name":"Keanu",
   "last_name":"Reeves",
   "phone_number":"+19999977777",
+  "email":"johnwick@excommunicado.com",
+  "role":"admin"
+}
+```
+
+### Editing team member details
+
+`PATCH /api/v1/team-members/:id`
+
+A partial update is allowed
+
+```sh
+curl -X PATCH -H "Content-Type:application/json" http://127.0.0.1:8000/api/v1/team-members/1 -d '
+{"first_name": "John", "last_name": "Wick", "phone_number": "+19999988888"}'
+```
+Status
+```
+HTTP/1.1 200 OK
+```
+Response Body
+```json
+{
+  "id":1,
+  "first_name":"John",
+  "last_name":"Wick",
+  "phone_number":"+19999988888",
   "email":"johnwick@excommunicado.com",
   "role":"admin"
 }
